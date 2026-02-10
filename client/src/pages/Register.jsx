@@ -13,8 +13,10 @@ const Register = () => {
         const password = form.password.value;
         const role = form.role.value;
 
-        const formInfo = {name, email, password, role};
+        const formInfo = { name, email, password, role };
         console.log(formInfo);
+
+        form.reset();
     }
 
     return (
@@ -46,11 +48,11 @@ const Register = () => {
                                 <div className="mb-2"></div>
 
                                 <label className="label text-emerald-700 font-semibold">Password</label>
-                                <select name="role" defaultValue="Pick a browser" className="select">
-                                    <option value="" disabled={true}>Your Role</option>
+                                <select name="role" defaultValue="" className="select" required>
+                                    <option value="" disabled>Your Role</option>
                                     <option value="user">User</option>
                                     <option value="delivery">Delivery Man</option>
-                                    <option disabled>Admin</option>
+                                    <option value="admin" disabled>Admin</option>
                                 </select>
 
                                 <div className="mb-1"></div>
