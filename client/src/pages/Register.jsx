@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import heroImg from "../assets/hero2.jpg";
+import { TiArrowBack } from "react-icons/ti";
 
 const Register = () => {
 
@@ -26,6 +27,12 @@ const Register = () => {
                 {/* Card */}
                 <div className="card bg-base-100 w-400 max-w-sm shrink-0 rounded-none py-10">
                     <div className="card-body">
+                        <Link to={"/"} className="cursor-pointer">
+                            <div className="flex items-center">
+                                <TiArrowBack />
+                                <h1>Home</h1>
+                            </div>
+                        </Link>
                         <h1 className="text-3xl font-bold">Register.</h1>
                         <h1 className="text-xl pb-5">Hey there, care to join us !?</h1>
 
@@ -47,7 +54,7 @@ const Register = () => {
 
                                 <div className="mb-2"></div>
 
-                                <label className="label text-emerald-700 font-semibold">Password</label>
+                                <label className="label text-emerald-700 font-semibold">Role</label>
                                 <select name="role" defaultValue="" className="select" required>
                                     <option value="" disabled>Your Role</option>
                                     <option value="user">User</option>

@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import heroImg from "../assets/hero2.jpg";
+import { TiArrowBack } from "react-icons/ti";
 
 const Login = () => {
 
@@ -22,7 +23,12 @@ const Login = () => {
                 {/* Card */}
                 <div className="card bg-base-100 w-400 max-w-sm shrink-0 rounded-none py-10">
                     <div className="card-body">
-                        <p></p>
+                        <Link to={"/"} className="cursor-pointer">
+                            <div className="flex items-center">
+                                <TiArrowBack />
+                                <h1>Home</h1>
+                            </div>
+                        </Link>
                         <h1 className="text-3xl font-bold">Login.</h1>
                         <h1 className="text-xl pb-5">Welcome back !</h1>
 

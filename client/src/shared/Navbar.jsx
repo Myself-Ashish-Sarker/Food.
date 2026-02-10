@@ -34,7 +34,7 @@ const Navbar = () => {
                             <Link>Menu</Link>
                             <Link>Contact</Link>
                             <button className="btn bg-orange-400 text-white">
-                                <Link to={"/register"}>Join us</Link>
+                                <Link to={"/login"}>Join us</Link>
                             </button>
                         </div>
                     </div>
