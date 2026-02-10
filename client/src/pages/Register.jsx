@@ -43,7 +43,7 @@ const Register = () => {
                                 <label className="label text-emerald-700 font-semibold">Password</label>
                                 <input name="password" type="password" className="input" placeholder="Password" />
 
-                                <div className="mb-1"></div>
+                                <div className="mb-2"></div>
 
                                 <label className="label text-emerald-700 font-semibold">Password</label>
                                 <select name="role" defaultValue="Pick a browser" className="select">
@@ -59,8 +59,8 @@ const Register = () => {
                                     <p>Already have an account? <Link className="link link-success link-hover">Login</Link></p>
                                 </div>
 
-                                <button className="btn bg-emerald-800 text-white mt-7">
-                                    Login
+                                <button className="btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7">
+                                    Register
                                 </button>
                             </fieldset>
                         </form>
