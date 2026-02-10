@@ -33,7 +33,9 @@ const Navbar = () => {
                             <Link>Home</Link>
                             <Link>Menu</Link>
                             <Link>Contact</Link>
-                            <button className="btn bg-orange-400 text-white">Join us</button>
+                            <button className="btn bg-orange-400 text-white">
+                                <Link to={"/register"}>Join us</Link>
+                            </button>
                         </div>
                     </div>
                 </div>
