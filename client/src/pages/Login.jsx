@@ -1,19 +1,17 @@
 import { Link } from "react-router";
 import heroImg from "../assets/hero2.jpg";
 
-const Register = () => {
+const Login = () => {
 
-    const handleregister = e => {
+    const handleLogin = e => {
         e.preventDefault();
 
         const form = e.target;
 
-        const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        const role = form.role.value;
 
-        const formInfo = {name, email, password, role};
+        const formInfo = { email, password };
         console.log(formInfo);
     }
 
@@ -24,16 +22,11 @@ const Register = () => {
                 {/* Card */}
                 <div className="card bg-base-100 w-400 max-w-sm shrink-0 rounded-none py-10">
                     <div className="card-body">
-                        <h1 className="text-3xl font-bold">Register.</h1>
-                        <h1 className="text-xl pb-5">Hey there, care to join us !?</h1>
+                        <h1 className="text-3xl font-bold">Login.</h1>
+                        <h1 className="text-xl pb-5">Welcome back !</h1>
 
-                        <form onSubmit={handleregister}>
+                        <form onSubmit={handleLogin}>
                             <fieldset className="fieldset">
-
-                                <label className="label text-emerald-700 font-semibold">Username</label>
-                                <input name="name" type="text" className="input pb" placeholder="Username" />
-
-                                <div className="mb-2"></div>
 
                                 <label className="label text-emerald-700 font-semibold">Email</label>
                                 <input name="email" type="email" className="input" placeholder="Email" />
@@ -45,22 +38,14 @@ const Register = () => {
 
                                 <div className="mb-2"></div>
 
-                                <label className="label text-emerald-700 font-semibold">Password</label>
-                                <select name="role" defaultValue="Pick a browser" className="select">
-                                    <option value="" disabled={true}>Your Role</option>
-                                    <option value="user">User</option>
-                                    <option value="delivery">Delivery Man</option>
-                                    <option disabled>Admin</option>
-                                </select>
-
                                 <div className="mb-1"></div>
 
                                 <div>
-                                    <p>Already have an account? <Link to={"/login"} className="link link-success link-hover">Login</Link></p>
+                                    <p>Don't have an account? <Link to={"/register"} className="link link-success link-hover">Register</Link></p>
                                 </div>
 
                                 <button className="btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7">
-                                    Register
+                                    Login
                                 </button>
                             </fieldset>
                         </form>
@@ -78,8 +63,7 @@ const Register = () => {
 
             </div>
         </div>
-
     );
 };
 
-export default Register;
+export default Login;
