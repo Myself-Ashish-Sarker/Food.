@@ -20,9 +20,9 @@ const Navbar = () => {
                             tabIndex="-1"
                             className="border-2 menu menu-sm dropdown-content bg-base-100 z-1 mt-3 w-52  my-5">
                             <div className="flex flex-col gap-3 text-black">
-                                <Link >Home</Link>
+                                <Link to={"/"}>Home</Link>
                                 <Link >Menu</Link>
-                                <Link >Contact</Link>
+                                <Link to={"/contact"}>Contact</Link>
                                 <button className="btn bg-orange-400 text-white">Join us</button>
                             </div>
                         </ul>
@@ -30,9 +30,9 @@ const Navbar = () => {
 
                     <div className="hidden lg:block">
                         <div className="  flex items-center-safe gap-5">
-                            <Link>Home</Link>
+                            <Link to={"/"}>Home</Link>
                             <Link>Menu</Link>
-                            <Link>Contact</Link>
+                            <Link to={"/contact"}>Contact</Link>
                             <button className="btn bg-orange-400 text-white">
                                 <Link to={"/login"}>Join us</Link>
                             </button>
