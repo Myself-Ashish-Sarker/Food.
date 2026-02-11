@@ -72,9 +72,6 @@ const Navbar = () => {
                                     )
                             }
                         </ul>
-                        {/* <div className="dropdown">
-                            
-                        </div> */}
                     </div>
 
                     <div className="hidden lg:block">
@@ -88,8 +85,8 @@ const Navbar = () => {
                             ) : user ? (
                                 <div className="dropdown dropdown-end">
                                     <div tabIndex={0}  className="">
-                                        <div className="text-3xl rounded-full">
-                                            <FaRegFaceLaughBeam className="cursor-pointer" />
+                                        <div className=" rounded-full">
+                                            <FaRegFaceLaughBeam className="cursor-pointer text-white text-3xl hover:text-4xl transform transition-all delay-150" />
                                         </div>
                                     </div>
                                     <ul className="menu menu-sm dropdown-content border-2 space-y-3 border-emerald-700 bg-base-100 text-black z-1 mt-3 w-52 p-2 shadow">
