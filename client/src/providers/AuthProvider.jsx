@@ -15,7 +15,7 @@ import {
     useEffect, 
     useState 
 } from "react";
-import auth from "../config/fierbase.config";
+import auth from "../config/firebase.config";
 
 
 export const AuthContext = createContext(null);
@@ -46,9 +46,9 @@ const AuthProvider = ({ children }) => {
     // State Change Monitor
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
-            console.log("status: ", currentuser);
-            console.log("status: ", currentuser?.email);
-            console.log("status: ", currentuser?.uid);
+            console.log("user: ", currentuser);
+            console.log("email: ", currentuser?.email);
+            console.log("uid: ", currentuser?.uid);
             setuser(currentuser);
             setloading(false);
 

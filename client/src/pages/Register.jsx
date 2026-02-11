@@ -1,8 +1,18 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import heroImg from "../assets/hero2.jpg";
 import { TiArrowBack } from "react-icons/ti";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
+
+    const {user, createUser} = useContext(AuthContext);
+
+    console.log(import.meta.env.VITE_FIREBASE_API_KEY);
+    console.log(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
+    console.log(import.meta.env.VITE_FIREBASE_PROJECT_ID);
+
+    const navigate = useNavigate();
 
     const handleregister = e => {
         e.preventDefault();
@@ -16,6 +26,15 @@ const Register = () => {
 
         const formInfo = { name, email, password, role };
         console.log(formInfo);
+
+        createUser(email, password)
+            .then(res => {
+                console.log(res.user);
+                navigate("/");
+            }).catch(err => {
+                console.error(err);
+                
+            })
 
         form.reset();
     }
