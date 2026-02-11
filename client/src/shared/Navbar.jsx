@@ -111,7 +111,7 @@ const Navbar = () => {
                                 </div>
                             ) : (
                                 <Link to="/login">
-                                    <button className="btn bg-orange-400 text-white">
+                                    <button className="btn border-2 bg-white  text-emerald-800 font-bold hover:bg-emerald-800 hover:border-2 hover:text-white">
                                         Join us
                                     </button>
                                 </Link>
