@@ -2,7 +2,7 @@ import { FaAddressBook, FaClock, FaMobile } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 const ContactBox = () => {
     return (
-        <div>
+        <div className="">
             <div className="flex flex-col lg:flex-row justify-between px-3 md:px-20 lg:px-50 mt-24 py-2 ">
                 <div>
                     <h1 className="text-4xl lg:text-5xl text-emerald-700 font-black">Get In Touch</h1>
