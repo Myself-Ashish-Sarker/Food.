@@ -1,8 +1,14 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import heroImg from "../assets/hero2.jpg";
 import { TiArrowBack } from "react-icons/ti";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
+
+    const {login} = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleLogin = e => {
         e.preventDefault();
@@ -14,6 +20,14 @@ const Login = () => {
 
         const formInfo = { email, password };
         console.log(formInfo);
+
+        login(email, password)
+            .then(res => {
+                console.log(res.user);
+                navigate("/")
+            }).catch(err => {
+                console.error(err);
+            })
     }
 
     return (
