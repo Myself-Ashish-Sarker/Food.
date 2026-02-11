@@ -22,7 +22,7 @@ const Register = () => {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="flex shadow-2xl">
+            <div className="flex shadow-2xl border-2 border-emerald-700">
 
                 {/* Card */}
                 <div className="card bg-base-100 w-400 max-w-sm shrink-0 rounded-none py-10">
