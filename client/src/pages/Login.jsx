@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router";
-import heroImg from "../assets/hero2.jpg";
+import loginImg from "../assets/login.jpg";
 import { TiArrowBack } from "react-icons/ti";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
 
-    const {login} = useContext(AuthContext);
+    const { user, loading, login } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const Login = () => {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="flex shadow-2xl border-2 border-emerald-700">
+            <div className="flex shadow-2xl border-[3px] border-emerald-700">
 
                 {/* Card */}
                 <div className="card bg-base-100 w-400 max-w-sm shrink-0 rounded-none py-10">
@@ -50,24 +50,64 @@ const Login = () => {
                             <fieldset className="fieldset">
 
                                 <label className="label text-emerald-700 font-semibold">Email</label>
-                                <input name="email" type="email" className="input" placeholder="Email" />
+                                {
+                                    user ? (
+                                        <input disabled name="email" type="email" className="input" placeholder="Email" required />
+                                    ) : (
+                                        <input name="email" type="email" className="input" placeholder="Email" required />
+                                    )
+                                }
 
                                 <div className="mb-2"></div>
 
                                 <label className="label text-emerald-700 font-semibold">Password</label>
-                                <input name="password" type="password" className="input" placeholder="Password" />
+                                {
+                                    user ? (
+                                        <input disabled name="password" type="password" className="input" placeholder="Password" required />
+                                    ) : (
+                                        <input name="password" type="password" className="input" placeholder="Password" required />
+                                    )
+                                }
+                                
 
                                 <div className="mb-2"></div>
 
                                 <div className="mb-1"></div>
 
                                 <div>
-                                    <p>Don't have an account? <Link to={"/register"} className="link link-success link-hover">Register</Link></p>
+                                    <p>Don't have an account? 
+                                        <Link to={"/register"} className="ml-1 text-md link link-success link-hover">
+                                        {
+                                            user ? (
+                                                <></>
+                                            ) : (
+                                                "register"
+                                            )
+                                        }
+                                        
+                                        </Link>
+                                    </p>
                                 </div>
 
-                                <button className="btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7">
-                                    Login
-                                </button>
+                                {
+                                    loading ? (
+                                        <>
+                                            <button
+                                                disabled={user}
+                                                className={`btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${user ? "opacity-50 cursor-not-allowed" : ""}`}>
+                                                <span className="loading loading-spinner loading-xl"></span>
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button
+                                                disabled={user}
+                                                className={`btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${user ? "opacity-50 cursor-not-allowed" : ""}`}>
+                                                Login
+                                            </button>
+                                        </>
+                                    )
+                                }
                             </fieldset>
                         </form>
                     </div>
@@ -76,7 +116,7 @@ const Login = () => {
                 {/* Image */}
                 <div className="hidden lg:block w-xl">
                     <img
-                        src={heroImg}
+                        src={loginImg}
                         alt=""
                         className="h-full w-full object-cover"
                     />

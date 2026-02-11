@@ -1,18 +1,29 @@
 import { Link, useNavigate } from "react-router";
-import heroImg from "../assets/hero2.jpg";
+import registerImg from "../assets/register.jpg";
 import { TiArrowBack } from "react-icons/ti";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
 
-    const {user, createUser} = useContext(AuthContext);
+    const { user, loading, createUser } = useContext(AuthContext);
+
+    const [submitting, setSubmitting] = useState(false);
 
     console.log(import.meta.env.VITE_FIREBASE_API_KEY);
     console.log(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
     console.log(import.meta.env.VITE_FIREBASE_PROJECT_ID);
 
     const navigate = useNavigate();
+
+    // if (loading) {
+    //     return (
+    //         <div className="flex justify-center items-center h-screen">
+    //             <span className="loading loading-spinner loading-xl"></span>
+    //         </div>
+    //     );
+    // }
+
 
     const handleregister = e => {
         e.preventDefault();
@@ -33,7 +44,7 @@ const Register = () => {
                 navigate("/");
             }).catch(err => {
                 console.error(err);
-                
+
             })
 
         form.reset();
@@ -46,6 +57,7 @@ const Register = () => {
                 {/* Card */}
                 <div className="card bg-base-100 w-400 max-w-sm shrink-0 rounded-none py-10">
                     <div className="card-body">
+
                         <Link to={"/"} className="cursor-pointer">
                             <div className="flex items-center">
                                 <TiArrowBack />
@@ -59,17 +71,17 @@ const Register = () => {
                             <fieldset className="fieldset">
 
                                 <label className="label text-emerald-700 font-semibold">Username</label>
-                                <input name="name" type="text" className="input pb" placeholder="Username" />
+                                <input name="name" type="text" className="input pb" placeholder="Username" required />
 
                                 <div className="mb-2"></div>
 
                                 <label className="label text-emerald-700 font-semibold">Email</label>
-                                <input name="email" type="email" className="input" placeholder="Email" />
+                                <input name="email" type="email" className="input" placeholder="Email" required />
 
                                 <div className="mb-2"></div>
 
                                 <label className="label text-emerald-700 font-semibold">Password</label>
-                                <input name="password" type="password" className="input" placeholder="Password" />
+                                <input name="password" type="password" className="input" placeholder="Password" required />
 
                                 <div className="mb-2"></div>
 
@@ -87,9 +99,26 @@ const Register = () => {
                                     <p>Already have an account? <Link to={"/login"} className="link link-success link-hover">Login</Link></p>
                                 </div>
 
-                                <button className="btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7">
-                                    Register
-                                </button>
+                                {
+                                    loading ? (
+                                        <>
+                                            <button
+                                                disabled={user}
+                                                className={`btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${user ? "opacity-50 cursor-not-allowed" : ""}`}>
+                                                <span className="loading loading-spinner loading-xl"></span>
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button
+                                                disabled={user}
+                                                className={`btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${user ? "opacity-50 cursor-not-allowed" : ""}`}>
+                                                Register
+                                            </button>
+                                        </>
+                                    )
+                                }
+
                             </fieldset>
                         </form>
                     </div>
@@ -98,7 +127,7 @@ const Register = () => {
                 {/* Image */}
                 <div className="hidden lg:block w-xl">
                     <img
-                        src={heroImg}
+                        src={registerImg}
                         alt=""
                         className="h-full w-full object-cover"
                     />
