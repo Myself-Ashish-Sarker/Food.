@@ -6,7 +6,7 @@ import Faq from "../components/Faq";
 
 const Contact = () => {
     return (
-        <div>
+        <div className="pt-16"> 
             <Hero
                 heroBgSize={"h-[40vh]"}
                 image={contactBg}

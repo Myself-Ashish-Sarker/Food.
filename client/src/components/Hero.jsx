@@ -4,7 +4,7 @@ const Hero = ({heroBgSize, image, title, details, buttonClass, buttonText, linkT
     return (
         <>
             <div
-                className={`hero ${heroBgSize}`}
+                className={` hero ${heroBgSize}`}
                 style={{
                     backgroundImage: `url(${image})`,
                 }}

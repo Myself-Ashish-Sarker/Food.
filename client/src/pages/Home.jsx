@@ -3,7 +3,7 @@ import heroHomeImg from "../assets/hero2.jpg";
 
 const Home = () => {
     return (
-        <div>
+        <div className="pt-15">
             <Hero
                 heroBgSize={"h-[70vh]"}
                 image={heroHomeImg}
