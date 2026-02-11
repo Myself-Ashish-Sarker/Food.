@@ -2,11 +2,9 @@ import {
     createUserWithEmailAndPassword,
     deleteUser,
     EmailAuthProvider,
-    GoogleAuthProvider,
     onAuthStateChanged,
     reauthenticateWithCredential,
     signInWithEmailAndPassword,
-    signInWithPopup,
     signOut,
     updatePassword
 } from "firebase/auth";
@@ -23,7 +21,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
 
     const [user, setuser] = useState(null);
-    const [loading, setloading] = useState(false);
+    const [loading, setloading] = useState(true);
 
     // Registration Function
     const createUser = (email, password) => {
@@ -40,7 +38,7 @@ const AuthProvider = ({ children }) => {
     // Logout function
     const logOut = () => {
         setloading(true);
-        return signOut(auth, googleProvider);
+        return signOut(auth);
     }
 
     // State Change Monitor
