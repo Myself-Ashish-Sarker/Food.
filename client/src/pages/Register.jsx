@@ -4,7 +4,7 @@ import { TiArrowBack } from "react-icons/ti";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import useAxiosPublic from "../hooks/useAxiosPublic";
-import { Slide, toast, ToastContainer } from "react-toastify";
+import { Slide, toast } from "react-toastify";
 
 const Register = () => {
 

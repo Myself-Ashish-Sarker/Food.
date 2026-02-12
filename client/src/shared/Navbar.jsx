@@ -75,7 +75,17 @@ const Navbar = () => {
                                     (
                                         <>
                                             <div className="flex items-center gap-2">
-                                                <div className="label ml-2">User Info</div>
+                                                {
+                                                    userDB && (
+                                                        userDB.role === "admin" ? (
+                                                            <div className="label ml-2">Admin Info</div>
+                                                        ) : userDB.role === "delivery" ? (
+                                                            <div className="label ml-2">Delivery Info</div>
+                                                        ) : (
+                                                            <div className="label ml-2">User Info</div>
+                                                        )
+                                                    )
+                                                }
                                                 <TiArrowSortedDown className="label text-md" />
                                             </div>
 
@@ -96,7 +106,16 @@ const Navbar = () => {
                                             </div>
 
                                             <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Profile</Link></li>
-                                            <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Cart</Link></li>
+                                            {
+                                                userDB && (
+                                                    userDB?.role === "admin"
+                                                        ?
+                                                        <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Add Menu</Link></li>
+                                                        :
+                                                        <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Cart</Link></li>
+
+                                                )
+                                            }
                                             <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Coupons</Link></li>
 
                                             <hr className="mb-5" />
@@ -154,7 +173,16 @@ const Navbar = () => {
                                         <hr className="mb-5" />
 
                                         <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Profile</Link></li>
-                                        <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Cart</Link></li>
+                                        {
+                                            userDB && (
+                                                userDB?.role === "admin"
+                                                    ?
+                                                    <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Add Menu</Link></li>
+                                                    :
+                                                    <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Cart</Link></li>
+
+                                            )
+                                        }
                                         <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Coupons</Link></li>
 
                                         <li>

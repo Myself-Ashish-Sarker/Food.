@@ -3,7 +3,6 @@ import loginImg from "../assets/login.jpg";
 import { TiArrowBack } from "react-icons/ti";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { ToastContainer } from "react-toastify";
 
 const Login = () => {
 
