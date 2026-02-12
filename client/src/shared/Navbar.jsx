@@ -59,7 +59,7 @@ const Navbar = () => {
                                             <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Menu</Link></li>
                                             <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
 
-                                            <button className="mt-5 btn border-2 border-emerald-800 text-black hover:text-white hover:bg-emerald-800 hover:border-none">Sign Out</button>
+                                            <button onClick={handleLogOut} className="mt-5 btn border-2 border-emerald-800 text-black hover:text-white hover:bg-emerald-800 hover:border-none">Sign Out</button>
                                         </>
                                     )
                                     :
@@ -68,6 +68,7 @@ const Navbar = () => {
                                             <li><Link to={"/"} className="">Home</Link></li>
                                             <li><Link to={"/meu"} className="">Menu</Link></li>
                                             <li><Link to={"/contact"} className="">Contact</Link></li>
+                                            <button className="btn"><Link to={"/login"}>Join Us</Link></button>
                                         </>
                                     )
                             }
