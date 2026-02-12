@@ -8,10 +8,10 @@ import {
     signOut,
     updatePassword
 } from "firebase/auth";
-import { 
-    createContext, 
-    useEffect, 
-    useState 
+import {
+    createContext,
+    useEffect,
+    useState
 } from "react";
 import auth from "../config/firebase.config";
 
@@ -21,23 +21,32 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
 
     const [user, setuser] = useState(null);
-    const [loading, setloading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     // Registration Function
     const createUser = (email, password) => {
-        setloading(true);
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     // Login Function
-    const login = (email, password) => {
-        setloading(true);
-        return signInWithEmailAndPassword(auth, email, password);
+    const login = async (email, password) => {
+        setLoading(true);
+        // return createUserWithEmailAndPassword(auth, email, password);
+        try {
+            const result = await signInWithEmailAndPassword(auth, email, password);
+            return result;
+        } catch (error) {
+            throw error;
+        } finally {
+            setLoading(false);   // ← VERY IMPORTANT
+        }
+        // this structure is very important or login with non register account will make the login text of login button and nav avatar icon replaced with spinner
     }
 
     // Logout function
     const logOut = () => {
-        setloading(true);
+        setLoading(true);
         return signOut(auth);
     }
 
@@ -48,7 +57,7 @@ const AuthProvider = ({ children }) => {
             console.log("email: ", currentuser?.email);
             console.log("uid: ", currentuser?.uid);
             setuser(currentuser);
-            setloading(false);
+            setLoading(false);
 
         });
 
