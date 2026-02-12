@@ -29,7 +29,7 @@ async function run() {
 
 
         // collection database
-        const userCollection = client.db("usersDB").collection("users");
+        const userCollection = client.db("foodDB").collection("users");
 
 
         // post api user

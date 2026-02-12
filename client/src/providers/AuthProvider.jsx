@@ -24,9 +24,17 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     // Registration Function
-    const createUser = (email, password) => {
+    const createUser = async (email, password) => {
         setLoading(true);
-        return createUserWithEmailAndPassword(auth, email, password);
+        // return createUserWithEmailAndPassword(auth, email, password);
+        try {
+            const result = await createUserWithEmailAndPassword(auth, email, password);
+            return result;
+        } catch (error) {
+            throw error;
+        } finally {
+            setLoading(false);   // ← VERY IMPORTANT
+        }
     }
 
     // Login Function

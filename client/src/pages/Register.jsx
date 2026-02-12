@@ -3,29 +3,17 @@ import registerImg from "../assets/register.jpg";
 import { TiArrowBack } from "react-icons/ti";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Register = () => {
 
     const { user, loading, createUser } = useContext(AuthContext);
 
-    const [submitting, setSubmitting] = useState(false);
-
-    console.log(import.meta.env.VITE_FIREBASE_API_KEY);
-    console.log(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
-    console.log(import.meta.env.VITE_FIREBASE_PROJECT_ID);
-
     const navigate = useNavigate();
 
-    // if (loading) {
-    //     return (
-    //         <div className="flex justify-center items-center h-screen">
-    //             <span className="loading loading-spinner loading-xl"></span>
-    //         </div>
-    //     );
-    // }
+    const axiosPublic = useAxiosPublic();
 
-
-    const handleregister = e => {
+    const handleregister = async (e) => {
         e.preventDefault();
 
         const form = e.target;
@@ -35,23 +23,31 @@ const Register = () => {
         const password = form.password.value;
         const role = form.role.value;
 
-        const formInfo = { name, email, password, role };
-        console.log(formInfo);
+        try {
+            const res = await createUser(email, password);
+            const regUser = res.user;
 
-        createUser(email, password)
-            .then(res => {
-                console.log(res.user);
-                navigate("/", {
-                    state: {
-                        registerSuccess: true
-                    }
-                });
-            }).catch(err => {
-                console.error(err);
+            const userInfo = {
+                name,
+                email: regUser.email,
+                role,
+                createdAt: new Date(),
+            };
 
-            })
+            const response = await axiosPublic.post("/users", userInfo);
+            console.log(response.data);
+            // reset form after success
+            form.reset();
 
-        form.reset();
+            navigate("/", {
+                state: {
+                    registerSuccess: true
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            
+        }
     }
 
     return (
