@@ -37,14 +37,21 @@ async function run() {
             const user = req.body;
             const result = await userCollection.insertOne(user);
             res.send(result);
-        })
+        });
 
         // get user api
         app.get("/users", async (req, res) => {
             const cursor = userCollection.find();
             const result = await cursor.toArray();
             res.send(result)
-        })
+        });
+
+        // get user specific api
+        app.get("/users/:email", async (req, res) => {
+            const email = req.params.email;
+            const user = await userCollection.findOne({ email });
+            res.send(user);
+        });
 
 
 

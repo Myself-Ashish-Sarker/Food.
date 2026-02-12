@@ -1,19 +1,39 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { Link } from "react-router";
 import { AuthContext } from "../providers/AuthProvider";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { FaRegFaceLaughBeam } from "react-icons/fa6";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Navbar = () => {
 
     const { user, loading, logOut } = useContext(AuthContext);
 
+    const [userDB, setUserDB] = useState(null);
+
+    const axiosPublic = useAxiosPublic();
+
     const handleLogOut = () => {
         logOut()
             .then()
             .catch()
-    }
+    };
+
+    useEffect(() => {
+        if (user?.email) {
+            axiosPublic.get(`/users/${user.email}`)
+                .then(res => {
+                    console.log(res.data);
+                    setUserDB(res.data);
+                }).catch(err => {
+                    console.error(err);
+                    
+                })
+        }
+    }, [user, axiosPublic])
+
+    
 
     return (
         <>
@@ -25,7 +45,7 @@ const Navbar = () => {
 
                     <div className="lg:hidden dropdown dropdown-end">
                         <div tabIndex={0} className=""> <HiOutlineMenuAlt3 className="text-3xl text-white font-bold cursor-pointer" /></div>
-                        <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                        <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-64 p-2 shadow-sm mt-5">
                             {
                                 user ?
                                     (
@@ -35,7 +55,8 @@ const Navbar = () => {
                                                 <TiArrowSortedDown className="label text-md" />
                                             </div>
 
-                                            <li className="p-2 text-[0.95rem] font-semibold text-black">{user.email}</li>
+                                            <li className="p-2 text-[0.95rem] font-semibold text-black">{userDB?.email}</li>
+                                            <li className="p-2 text-[0.95rem] font-semibold text-black">{userDB?.name}</li>
 
                                             <hr className="mb-5" />
 
@@ -92,7 +113,8 @@ const Navbar = () => {
                                     </div>
                                     <ul className="menu menu-sm dropdown-content border-2 space-y-3 border-emerald-700 bg-base-100 text-black z-1 mt-3 w-52 p-2 shadow">
 
-                                        <li className="p-2 text-[0.95rem] font-semibold">{user.email}</li>
+                                        <li className=" text-[0.95rem] font-semibold">{userDB?.email}</li>
+                                        <li className=" text-[0.95rem] font-semibold">{userDB?.name}</li>
 
                                         <hr className="mb-5" />
 
