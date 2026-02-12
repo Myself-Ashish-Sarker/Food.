@@ -12,9 +12,7 @@ const Root = () => {
                 <Footer />
             </div>
 
-            <div className="mt-5 pt-5">
-                <ToastContainer />
-            </div>
+            <ToastContainer />
         </>
     );
 };

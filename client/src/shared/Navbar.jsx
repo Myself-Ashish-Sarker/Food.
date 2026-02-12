@@ -5,7 +5,7 @@ import { AuthContext } from "../providers/AuthProvider";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { FaRegFaceLaughBeam } from "react-icons/fa6";
 import useAxiosPublic from "../hooks/useAxiosPublic";
-import { Slide, toast, ToastContainer } from "react-toastify";
+import { Slide, toast } from "react-toastify";
 
 const Navbar = () => {
 
@@ -46,7 +46,18 @@ const Navbar = () => {
         }
     }, [user, axiosPublic])
 
-
+    const getBadgeColor = role => {
+        switch (role) {
+            case "user":
+                return "badge badge-dash badge-success";
+            case "admin":
+                return "badge badge-dash badge-secondary";
+            case "delivery":
+                return "badge badge-dash badge-primary";
+            default:
+                return "badge badge-neutral badge-dash";
+        }
+    }
 
     return (
         <>
@@ -66,6 +77,12 @@ const Navbar = () => {
                                             <div className="flex items-center gap-2">
                                                 <div className="label ml-2">User Info</div>
                                                 <TiArrowSortedDown className="label text-md" />
+                                            </div>
+
+                                            <div className="mt-2"></div>
+
+                                            <div className={getBadgeColor(userDB?.role)}>
+                                                {userDB?.role}
                                             </div>
 
                                             <li className="p-2 text-[0.95rem] font-semibold text-black">{userDB?.email}</li>
@@ -102,7 +119,9 @@ const Navbar = () => {
                                             <li><Link to={"/"} className="">Home</Link></li>
                                             <li><Link to={"/meu"} className="">Menu</Link></li>
                                             <li><Link to={"/contact"} className="">Contact</Link></li>
-                                            <button className="btn"><Link to={"/login"}>Join Us</Link></button>
+                                            <li className="">
+                                                <Link to={"/login"} className="btn max-w-full"><button className="">Join Us</button></Link>
+                                            </li>
                                         </>
                                     )
                             }
@@ -126,6 +145,9 @@ const Navbar = () => {
                                     </div>
                                     <ul className="menu menu-sm dropdown-content border-2 space-y-3 border-emerald-700 bg-base-100 text-black z-1 mt-3 w-52 p-2 shadow">
 
+                                        <div className={getBadgeColor(userDB?.role)}>
+                                            {userDB?.role}
+                                        </div>
                                         <li className=" text-[0.95rem] font-semibold">{userDB?.email}</li>
                                         <li className=" text-[0.95rem] font-semibold">{userDB?.name}</li>
 
