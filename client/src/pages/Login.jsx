@@ -24,7 +24,11 @@ const Login = () => {
         login(email, password)
             .then(res => {
                 console.log(res.user);
-                navigate("/")
+                navigate("/", {
+                    state: {
+                        loginSuccess: true
+                    }
+                })
             }).catch(err => {
                 console.error(err);
             })
