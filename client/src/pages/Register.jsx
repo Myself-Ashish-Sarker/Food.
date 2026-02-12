@@ -41,7 +41,11 @@ const Register = () => {
         createUser(email, password)
             .then(res => {
                 console.log(res.user);
-                navigate("/");
+                navigate("/", {
+                    state: {
+                        registerSuccess: true
+                    }
+                });
             }).catch(err => {
                 console.error(err);
 

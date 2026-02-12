@@ -27,6 +27,24 @@ const Home = () => {
         }
     }, [location.state])
 
+    useEffect(() => {
+        if (location.state?.registerSuccess) {
+            toast.success('Hi there, Glad you joined! ', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+
+            navigate(location.pathname, { replace: true })
+        }
+    }, [location.state])
+
 
     return (
         <>
