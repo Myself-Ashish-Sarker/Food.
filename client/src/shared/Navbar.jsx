@@ -5,6 +5,7 @@ import { AuthContext } from "../providers/AuthProvider";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { FaRegFaceLaughBeam } from "react-icons/fa6";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
 const Navbar = () => {
 
@@ -16,7 +17,19 @@ const Navbar = () => {
 
     const handleLogOut = () => {
         logOut()
-            .then()
+            .then(() => {
+                toast.success("success looged out!", {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Slide,
+                })
+            })
             .catch()
     };
 
@@ -28,12 +41,12 @@ const Navbar = () => {
                     setUserDB(res.data);
                 }).catch(err => {
                     console.error(err);
-                    
+
                 })
         }
     }, [user, axiosPublic])
 
-    
+
 
     return (
         <>
@@ -106,7 +119,7 @@ const Navbar = () => {
                                 <span className="loading loading-spinner loading-sm"></span>
                             ) : user ? (
                                 <div className="dropdown dropdown-end">
-                                    <div tabIndex={0}  className="">
+                                    <div tabIndex={0} className="">
                                         <div className=" rounded-full">
                                             <FaRegFaceLaughBeam className="cursor-pointer text-white text-3xl hover:text-4xl transform transition-all delay-150" />
                                         </div>

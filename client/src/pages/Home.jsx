@@ -1,19 +1,39 @@
 import Hero from "../components/Hero";
 import heroHomeImg from "../assets/hero2.jpg";
 import { useLocation, useNavigate } from "react-router";
-import { useEffect } from "react";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { useContext, useEffect, useState } from "react";
+import { Bounce, Slide, toast, } from "react-toastify";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Home = () => {
 
+    const {user} = useContext(AuthContext);
+
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+
+    const [userDB, setUserDB] = useState(null);
 
     useEffect(() => {
-        if (location.state?.loginSuccess) {
-            toast.success('Welcome back!!', {
+        if (user?.email) {
+            axiosPublic.get(`/users/${user?.email}`)
+                .then(res => {
+                    console.log(res.data);
+                    setUserDB(res.data)
+                }).catch(err => {
+                    console.error(err);
+                    
+                })
+        };
+    }, [axiosPublic])
+
+    useEffect(() => {
+        if (location.state?.registerSuccess && userDB) {
+            toast.success(`Hi ${userDB.name}, Glad you joined! `, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: false,
                 pauseOnHover: true,
@@ -25,25 +45,25 @@ const Home = () => {
 
             navigate(location.pathname, { replace: true })
         }
-    }, [location.state])
+    }, [location.state, navigate, userDB])
 
     useEffect(() => {
-        if (location.state?.registerSuccess) {
-            toast.success('Hi there, Glad you joined! ', {
+        if (location.state?.loginSuccess && userDB) {
+            toast.success(`Welcome back ${userDB.name}!!`, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1500,
                 hideProgressBar: false,
                 closeOnClick: false,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                transition: Bounce,
+                transition: Slide,
             });
 
             navigate(location.pathname, { replace: true })
         }
-    }, [location.state])
+    }, [location.state, navigate, userDB])
 
 
     return (
@@ -60,8 +80,6 @@ const Home = () => {
                     buttonClass={"btn-warning text-white"}
                 />
             </div>
-
-            <ToastContainer />
         </>
     );
 };
