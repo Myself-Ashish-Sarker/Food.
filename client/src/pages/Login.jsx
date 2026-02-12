@@ -78,7 +78,9 @@ const Login = () => {
 
                                     <div className="mb-2"></div>
 
-                                    <div className="mb-1"></div>
+                                    <div>
+                                        <Link className="link link-success">Forget Passowrd ?</Link>
+                                    </div>
 
                                     <div>
                                         <p>Don't have an account?
