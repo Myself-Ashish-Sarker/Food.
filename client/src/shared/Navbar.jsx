@@ -18,7 +18,7 @@ const Navbar = () => {
     const handleLogOut = () => {
         logOut()
             .then(() => {
-                toast.success("success looged out!", {
+                toast.success(`See you later, ${userDB.name}`, {
                     position: "top-right",
                     autoClose: 1500,
                     hideProgressBar: false,
