@@ -101,52 +101,145 @@ const Navbar = () => {
 
                                             <hr className="mb-5" />
 
-                                            <div className="flex items-center gap-2">
-                                                <div className="label ml-2">User Menu</div>
+                                            <div className="flex items-center gap-2 mb-3">
+                                                {
+                                                    userDB && (
+                                                        userDB.role === "admin" ? (
+                                                            <div className="label ml-2">Admin Menu</div>
+                                                        ) : userDB.role === "delivery man" ? (
+                                                            <div className="label ml-2">Delivery Menu</div>
+                                                        ) : (
+                                                            <div className="label ml-2">User Menu</div>
+                                                        )
+                                                    )
+                                                }
                                                 <TiArrowSortedDown className="label text-md" />
                                             </div>
 
-                                            <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Profile</Link></li>
                                             {
                                                 userDB && (
-                                                    userDB?.role === "admin"
-                                                        ?
-                                                        <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Add Menu</Link></li>
-                                                        :
-                                                        <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Cart</Link></li>
-
+                                                    userDB?.role === "admin" ? (
+                                                        <li><Link className="hover:bg-pink-700 hover:text-white p-2 text-[0.95rem] font-semibold">View  {userDB.name} Profile</Link></li>
+                                                    ) : userDB?.role === "delivery man" ? (
+                                                        <li><Link className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">View {userDB.name} Profile</Link></li>
+                                                    ) : (
+                                                        <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">View {userDB.name} Profile</Link></li>
+                                                    )
                                                 )
                                             }
-                                            <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Coupons</Link></li>
 
-                                            <hr className="mb-5" />
+                                            {
+                                                userDB && (
+                                                    userDB?.role === "admin" ? (
+                                                        <li><Link className="hover:bg-pink-700 hover:text-white p-2 text-[0.95rem] font-semibold">Add Menu</Link></li>
+                                                    ) : userDB?.role === "delivery man" ? (
+                                                        <li><Link className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">View Order List</Link></li>
+                                                    ) : (
+                                                        <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Cart</Link></li>
+                                                    )
+                                                )
+                                            }
 
-                                            <div className="flex items-center gap-2">
+                                            {
+                                                userDB && (
+                                                    userDB?.role === "admin" ? (
+                                                        <li><Link className="hover:bg-pink-700 hover:text-white p-2 text-[0.95rem] font-semibold">Add Coupons</Link></li>
+                                                    ) : userDB?.role === "delivery man" ? (
+                                                        <></>
+                                                    ) : (
+                                                        <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Coupons</Link></li>
+                                                    )
+                                                )
+                                            }
+
+                                            <hr className="mt-3 mb-5" />
+
+                                            <div className="flex items-center gap-2 mb-3">
                                                 <div className="label ml-2">Local Menu</div>
                                                 <TiArrowSortedDown className="label text-md" />
                                             </div>
 
-                                            <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
-                                            <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Menu</Link></li>
-                                            <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
+                                            {
+                                                userDB && (
+                                                    userDB?.role === "admin" ? (
+                                                        <li><Link to={"/"} className="hover:bg-pink-700 hover:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
+                                                    ) : userDB?.role === "delivery man" ? (
+                                                        <li><Link to={"/"} className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
+                                                    ) : (
+                                                        <li><Link to={"/"} className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
+                                                    )
+                                                )
+                                            }
 
-                                            <button onClick={handleLogOut} className="mt-5 btn border-2 border-emerald-800 text-black hover:text-white hover:bg-emerald-800 hover:border-none">Sign Out</button>
+                                            {
+                                                userDB && (
+                                                    userDB?.role === "admin" ? (
+                                                        <li><Link className="hover:bg-pink-700 hover:text-white p-2 text-[0.95rem] font-semibold">Menu</Link></li>
+                                                    ) : userDB?.role === "delivery man" ? (
+                                                        <li><Link className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">Menu</Link></li>
+                                                    ) : (
+                                                        <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Menu</Link></li>
+                                                    )
+                                                )
+                                            }
+
+                                            {
+                                                userDB && (
+                                                    userDB?.role === "admin" ? (
+                                                        <li><Link className="hover:bg-pink-700 hover:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
+                                                    ) : userDB?.role === "delivery man" ? (
+                                                        <li><Link className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
+                                                    ) : (
+                                                        <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Contract</Link></li>
+                                                    )
+                                                )
+                                            }
+
+                                            {/* logout button */}
+                                            {
+                                                userDB && (
+                                                    userDB?.role === "admin" ? (
+                                                        <button
+                                                            onClick={handleLogOut}
+                                                            className="mt-10 btn bg-none text-[0.95rem] font-semibold border-2 border-pink-700 text-pink-700 hover:bg-pink-700 hover:border-none hover:text-white"
+                                                        >
+                                                            Log Out
+                                                        </button>
+                                                    ) : userDB?.role === "delivery man" ? (
+                                                        <button
+                                                            onClick={handleLogOut}
+                                                            className="mt-10 btn bg-none text-[0.95rem] font-semibold border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:border-none hover:text-white"
+                                                        >
+                                                            Log Out
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            onClick={handleLogOut}
+                                                            className="mt-10 btn bg-none text-[0.95rem] font-semibold border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-700 hover:border-none hover:text-white"
+                                                        >
+                                                            Log Out
+                                                        </button>
+                                                    )
+                                                )
+                                            }
                                         </>
                                     )
                                     :
                                     (
                                         <>
-                                            <li><Link to={"/"} className="">Home</Link></li>
-                                            <li><Link to={"/meu"} className="">Menu</Link></li>
-                                            <li><Link to={"/contact"} className="">Contact</Link></li>
-                                            <li className="">
-                                                <Link to={"/login"} className="btn max-w-full"><button className="">Join Us</button></Link>
+                                            <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
+                                            <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Menu</Link></li>
+                                            <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Contract</Link></li>
+                                            
+                                            <li className="mt-4">
+                                                <Link to={"/login"} className="btn bg-none text-[0.95rem] font-semibold border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-700 hover:border-none hover:text-white"><button className="">Join Us</button></Link>
                                             </li>
                                         </>
                                     )
                             }
                         </ul>
                     </div>
+
 
                     {/* full screen navbar */}
                     <div className="hidden lg:block">
@@ -234,7 +327,7 @@ const Navbar = () => {
                                                 ) : userDB?.role === "delivery man" ? (
                                                     <></>
                                                 ) : (
-                                                    <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold"></Link>Coupons</li>
+                                                    <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Coupons</Link></li>
                                                 )
                                             )
                                         }
@@ -265,7 +358,7 @@ const Navbar = () => {
                                                 ) : userDB?.role === "delivery man" ? (
                                                     <li><Link className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">Terms and Conditions</Link></li>
                                                 ) : (
-                                                    <li><Link to={"/terms"} className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold"></Link>Terms and Conditions</li>
+                                                    <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Terms and Conditions</Link></li>
                                                 )
                                             )
                                         }
@@ -278,7 +371,7 @@ const Navbar = () => {
                                                 ) : userDB?.role === "delivery man" ? (
                                                     <li><Link className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">Privacy and Policy</Link></li>
                                                 ) : (
-                                                    <li><Link to={"/terms"} className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold"></Link>Privacy and Policy</li>
+                                                    <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">Privacy and Policy</Link></li>
                                                 )
                                             )
                                         }
