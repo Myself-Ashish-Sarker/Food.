@@ -12,8 +12,23 @@ const Navbar = () => {
     const { user, loading, logOut } = useContext(AuthContext);
 
     const [userDB, setUserDB] = useState(null);
+    const [dropdown, setDropdown] = useState(false);
 
     const axiosPublic = useAxiosPublic();
+
+    const closeDropdown = () => {
+        // For the mobile dropdown
+        const mobileDropdown = document.querySelector('.lg:hidden .dropdown [tabindex="0"]');
+        if (mobileDropdown) {
+            mobileDropdown.blur();
+        }
+
+        // For the desktop dropdown
+        const desktopDropdown = document.querySelector('.lg:block .dropdown [tabindex="0"]');
+        if (desktopDropdown) {
+            desktopDropdown.blur();
+        }
+    };
 
     const handleLogOut = () => {
         logOut()
@@ -69,7 +84,7 @@ const Navbar = () => {
 
                     {/* mobile device navbar */}
                     <div className="lg:hidden dropdown dropdown-end">
-                        <div tabIndex={0} className=""> <HiOutlineMenuAlt3 className="text-3xl text-white font-bold cursor-pointer" /></div>
+                        <div tabIndex={0} className=""> <HiOutlineMenuAlt3 onClick={prev => !prev} className="text-3xl text-white font-bold cursor-pointer" /></div>
                         <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-64 p-2 shadow-sm mt-5">
                             {
                                 user ?
@@ -153,23 +168,23 @@ const Navbar = () => {
                                             }
 
                                             {
-                                                    userDB && (
-                                                        userDB.role === "admin" ? (
-                                                            <>
-                                                                <hr className="mt-3 mb-5" />
-                                                            </>
-                                                        ) : (
-                                                            <></>
-                                                        )
+                                                userDB && (
+                                                    userDB.role === "admin" ? (
+                                                        <>
+                                                            <hr className="mt-3 mb-5" />
+                                                        </>
+                                                    ) : (
+                                                        <></>
                                                     )
-                                                }
+                                                )
+                                            }
 
                                             <div className="flex items-center gap-2 mb-3">
                                                 {
                                                     userDB && (
                                                         userDB.role === "admin" ? (
                                                             <>
-                                                                
+
                                                                 <div className="label ml-2">Admin Control Unit</div>
                                                             </>
                                                         ) : (
@@ -188,15 +203,14 @@ const Navbar = () => {
                                                         )
                                                     )
                                                 }
-                                                
+
                                             </div>
 
                                             {
                                                 userDB && (
                                                     userDB?.role === "admin" ? (
                                                         <>
-                                                            <li><Link className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">All User Control</Link></li>
-                                                            <li><Link className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Add Delivery Man Control</Link></li>
+                                                            <li><Link to={"/all-users"} onClick={closeDropdown} className=" hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">All User Control</Link></li>
                                                         </>
                                                     ) : (
                                                         <></>
@@ -215,7 +229,7 @@ const Navbar = () => {
                                             {
                                                 userDB && (
                                                     userDB?.role === "admin" ? (
-                                                        <li><Link to={"/"} className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
+                                                        <li><Link onClick={closeDropdown} to={"/"} className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
                                                     ) : userDB?.role === "delivery man" ? (
                                                         <li><Link to={"/"} className="hover:bg-blue-500 active:bg-blue-500 focus:bg-blue-500 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
                                                     ) : (
@@ -243,7 +257,7 @@ const Navbar = () => {
                                                     ) : userDB?.role === "delivery man" ? (
                                                         <li><Link className="hover:bg-blue-500 active:bg-blue-500 focus:bg-blue-500 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
                                                     ) : (
-                                                        <li><Link className="hover:bg-emerald-700 active:bg-emerald-700 focus:bg-emerald-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Contract</Link></li>
+                                                        <li><Link className="hover:bg-emerald-700 active:bg-emerald-700 focus:bg-emerald-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
                                                     )
                                                 )
                                             }
@@ -403,11 +417,21 @@ const Navbar = () => {
                                             <TiArrowSortedDown className="label text-md" />
                                         </div>
 
+                                        {
+                                            userDB && (
+                                                userDB?.role === "admin" ? (
+                                                    <li><Link to={"/all-users"} className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">All User Control</Link></li>
+                                                ) : (
+                                                    <></>
+                                                )
+                                            )
+                                        }
+
                                         {/* terms and conditions */}
                                         {
                                             userDB && (
                                                 userDB?.role === "admin" ? (
-                                                    <li><Link to={"/terms"} className="hover:bg-pink-700 hover:text-white p-2 text-[0.95rem] font-semibold">Terms and Conditions</Link ></li>
+                                                    <></>
                                                 ) : userDB?.role === "delivery man" ? (
                                                     <li><Link className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">Terms and Conditions</Link></li>
                                                 ) : (
@@ -420,7 +444,7 @@ const Navbar = () => {
                                         {
                                             userDB && (
                                                 userDB?.role === "admin" ? (
-                                                    <li><Link to={"/terms"} className="hover:bg-pink-700 hover:text-white p-2 text-[0.95rem] font-semibold">Privacy and Policy</Link ></li>
+                                                    <></>
                                                 ) : userDB?.role === "delivery man" ? (
                                                     <li><Link className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">Privacy and Policy</Link></li>
                                                 ) : (

@@ -3,10 +3,13 @@ import loginImg from "../assets/login.jpg";
 import { TiArrowBack } from "react-icons/ti";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Login = () => {
 
     const { user, loading, login } = useContext(AuthContext);
+
+    const axiosPublic = useAxiosPublic();
 
     const navigate = useNavigate();
 
@@ -22,7 +25,7 @@ const Login = () => {
         console.log(formInfo);
 
         login(email, password)
-            .then(res => {
+            .then( (res) => {
                 console.log(res.user);
                 navigate("/", {
                     state: {

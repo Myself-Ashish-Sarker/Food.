@@ -22,11 +22,11 @@ const client = new MongoClient(uri, {
         deprecationErrors: true,
     }
 });
+
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
-
 
         // collection database
         const userCollection = client.db("foodDB").collection("users");
@@ -52,6 +52,14 @@ async function run() {
             const user = await userCollection.findOne({ email });
             res.send(user);
         });
+
+        // filter role based user api
+        app.get("/users", async (req, res) => {
+            const role = rq.query.role;
+            const query = role ? { role } : {};
+            const result = await userCollection.find(query).toArray();
+            res.send(result);
+        })
 
 
 
