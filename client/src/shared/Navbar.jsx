@@ -12,7 +12,6 @@ const Navbar = () => {
     const { user, loading, logOut } = useContext(AuthContext);
 
     const [userDB, setUserDB] = useState(null);
-    const [dropdown, setDropdown] = useState(false);
 
     const axiosPublic = useAxiosPublic();
 
@@ -134,7 +133,7 @@ const Navbar = () => {
                                             {
                                                 userDB && (
                                                     userDB?.role === "admin" ? (
-                                                        <li><Link className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">View  {userDB.name} Profile</Link></li>
+                                                        <li><Link to={"/all"} className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">View  {userDB.name} Profile</Link></li>
                                                     ) : userDB?.role === "delivery man" ? (
                                                         <li><Link className="hover:bg-blue-500 active:bg-blue-500 focus:bg-blue-500 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">View {userDB.name} Profile</Link></li>
                                                     ) : (
@@ -229,11 +228,11 @@ const Navbar = () => {
                                             {
                                                 userDB && (
                                                     userDB?.role === "admin" ? (
-                                                        <li><Link onClick={closeDropdown} to={"/"} className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
+                                                        <li><Link to={"/"} onClick={closeDropdown} className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
                                                     ) : userDB?.role === "delivery man" ? (
-                                                        <li><Link to={"/"} className="hover:bg-blue-500 active:bg-blue-500 focus:bg-blue-500 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
+                                                        <li><Link to={"/"} onClick={closeDropdown} className="hover:bg-blue-500 active:bg-blue-500 focus:bg-blue-500 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
                                                     ) : (
-                                                        <li><Link to={"/"} className="hover:bg-emerald-700 active:bg-emerald-700 focus:bg-emerald-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
+                                                        <li><Link to={"/"} onClick={closeDropdown} className="hover:bg-emerald-700 active:bg-emerald-700 focus:bg-emerald-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Home</Link></li>
                                                     )
                                                 )
                                             }
@@ -420,7 +419,7 @@ const Navbar = () => {
                                         {
                                             userDB && (
                                                 userDB?.role === "admin" ? (
-                                                    <li><Link to={"/all-users"} className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">All User Control</Link></li>
+                                                    <li><Link to={"/all-users"} onClick={closeDropdown} className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">All User Control</Link></li>
                                                 ) : (
                                                     <></>
                                                 )
