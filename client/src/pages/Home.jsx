@@ -31,7 +31,7 @@ const Home = () => {
 
     useEffect(() => {
         if (location.state?.registerSuccess && userDB) {
-            toast.success(`Hi ${userDB.name}, Glad you joined! `, {
+            toast.success(`Hi ${userDB.fname} , Glad you joined! `, {
                 position: "top-right",
                 autoClose: 1500,
                 hideProgressBar: false,
@@ -49,7 +49,7 @@ const Home = () => {
 
     useEffect(() => {
         if (location.state?.loginSuccess && userDB) {
-            toast.success(`Welcome back ${userDB.name}!!`, {
+            toast.success(`Welcome back ${userDB.fname} ${userDB.lname}!!`, {
                 position: "top-right",
                 autoClose: 1500,
                 hideProgressBar: false,

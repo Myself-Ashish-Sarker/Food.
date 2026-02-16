@@ -110,8 +110,15 @@ const Navbar = () => {
                                                 {userDB?.role}
                                             </div>
 
-                                            <li className="p-2 text-[0.95rem] font-semibold text-black">{userDB?.email}</li>
-                                            <li className="p-2 text-[0.95rem] font-semibold text-black">{userDB?.name}</li>
+                                            <div className="flex items-center mt-3 mb-3">
+                                                <div>
+                                                    <img className="w-15 h-15 rounded-full" src={userDB?.photoURL} alt="" />
+                                                </div>
+                                                <div>
+                                                    <li className="pl-2 text-[0.95rem] font-semibold">{userDB?.fname} {userDB?.lname}</li>
+                                                    <li className="pl-2 text-[0.95rem] font-semibold">{userDB?.email}</li>
+                                                </div>
+                                            </div>
 
                                             <hr className="mb-5" />
 
@@ -252,11 +259,11 @@ const Navbar = () => {
                                             {
                                                 userDB && (
                                                     userDB?.role === "admin" ? (
-                                                        <li><Link className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
+                                                        <li><Link to={"/contact"} onClick={closeDropdown} className="hover:bg-pink-700 active:bg-pink-700 focus:bg-pink-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
                                                     ) : userDB?.role === "delivery man" ? (
-                                                        <li><Link className="hover:bg-blue-500 active:bg-blue-500 focus:bg-blue-500 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
+                                                        <li><Link to={"/contact"} onClick={closeDropdown} className="hover:bg-blue-500 active:bg-blue-500 focus:bg-blue-500 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
                                                     ) : (
-                                                        <li><Link className="hover:bg-emerald-700 active:bg-emerald-700 focus:bg-emerald-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
+                                                        <li><Link to={"/contact"} onClick={closeDropdown} className="hover:bg-emerald-700 active:bg-emerald-700 focus:bg-emerald-700 hover:text-white active:text-white focus:text-white p-2 text-[0.95rem] font-semibold">Contact</Link></li>
                                                     )
                                                 )
                                             }
@@ -342,8 +349,16 @@ const Navbar = () => {
                                         <div className={getBadgeColor(userDB?.role)}>
                                             {userDB?.role}
                                         </div>
-                                        <li className="pl-2 text-[0.95rem] font-semibold">{userDB?.email}</li>
-                                        <li className="pl-2 text-[0.95rem] font-semibold">{userDB?.name}</li>
+
+                                        <div className="flex items-center mt-3">
+                                            <div>
+                                                <img className="w-15 h-15 rounded-full" src={userDB?.photoURL} alt="" />
+                                            </div>
+                                            <div>
+                                                <li className="pl-2 text-[0.95rem] font-semibold">{userDB?.fname} {userDB?.lname}</li>
+                                                <li className="pl-2 text-[0.95rem] font-semibold">{userDB?.email}</li>
+                                            </div>
+                                        </div>
 
                                         <hr className="mb-5" />
 

@@ -29,7 +29,7 @@ const Profile = () => {
             })
     }, []);
 
-    
+
 
 
     return (
@@ -41,10 +41,12 @@ const Profile = () => {
 
                 <h1 className="text-3xl ">Personal Information</h1>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex ">
                     <img className="w-24 h-24 rounded-full" src={userDB.photoURL} alt="" />
-                    <div className=" h-4 w-20">{userDB.fname}</div>
-                    <div className=" h-4 w-20">{userDB.lname}</div>
+                    <div className="flex gap-1">
+                        <div className=" h-4 w-20">{userDB.fname} and</div>
+                        <div className=" h-4 w-20">{userDB.lname}</div>
+                    </div>
                     <div className=" h-4 w-28">{userDB.email}</div>
                 </div>
             </div>
