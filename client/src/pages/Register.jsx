@@ -23,15 +23,17 @@ const Register = () => {
 
         const form = e.target;
 
-        const name = form.name.value;
+        const fname = form.fname.value;
+        const lname = form.lname.value;
         const email = form.email.value;
         const password = form.password.value;
+        const phone = form.phone.value;
         const role = form.role.value;
         const imgFile = form.image.files[0];
 
         try {
 
-            // ✅ STEP 1: Upload Image to ImageBB
+            //Upload Image to ImageBB
             const formData = new FormData();
             formData.append("image", imgFile);
 
@@ -47,8 +49,10 @@ const Register = () => {
             const regUser = res.user;
 
             const userInfo = {
-                name,
+                fname,
+                lname,
                 email: regUser.email,
+                phone,
                 role,
                 photoURL: imageURL,
                 createdAt: new Date(),
@@ -94,85 +98,156 @@ const Register = () => {
                         `url(${regBackImage})`,
                 }}
             >
-                <div className="hero-overlay"></div>
-                <div className="hero-content text-neutral-content text-center">
-                    <div className="max-w-md">
-                        <div className="card bg-base-100 w-400 max-w-sm shrink-0 rounded-none py-10">
-                            <div className="card-body">
+                <div className="hero hero-overlay py-10">
+                    <div className="flex items-center justify-center px-4 py-8 w-full">
+                        <div className="w-full max-w-md md:max-w-2xl lg:max-w-2xl bg-white shadow-2xl">
+                            <form onSubmit={handleregister} className="card-body p-6 sm:p-8 md:p-10">
 
+                                {/* home link */}
                                 <Link to={"/"} className="cursor-pointer">
                                     <div className="flex items-center text-black">
                                         <TiArrowBack />
-                                        <h1>Home</h1>
+                                        <p className="text-base">Home</p>
                                     </div>
                                 </Link>
-                                <h1 className="text-3xl font-bold text-black">Register.</h1>
-                                <h1 className="text-xl pb-5 text-black">Hey there, care to join us !?</h1>
 
-                                <form onSubmit={handleregister}>
-                                    <fieldset className="fieldset">
+                                <div className="mt-5"></div>
 
-                                        <label className="label text-emerald-700 font-semibold">Username</label>
-                                        <input name="name" type="text" className="input text-black" placeholder="Username" required />
+                                {/* register title */}
+                                <h1 className="text-3xl font-bold text-black text-center">Register.</h1>
+                                <h1 className="text-lg pb-5 text-black text-center">Hey there, care to join us !?</h1>
 
-                                        <div className="mb-2"></div>
+                                <div className="mb-5"></div>
 
-                                        <label className="label text-emerald-700 font-semibold">Email</label>
-                                        <input name="email" type="email" className="input text-black" placeholder="Email" required />
+                                {/* names */}
+                                <div className="-mx-3 flex flex-wrap">
+                                    <div className="w-full px-3 sm:w-1/2">
 
-                                        <div className="mb-2"></div>
-
-                                        <label className="label text-emerald-700 font-semibold">Password</label>
-                                        <input name="password" type="password" className="input text-black" placeholder="Password" required />
-
-                                        <div className="mb-2"></div>
-
-                                        <label className="label text-emerald-700 font-semibold">Role</label>
-                                        <select name="role" defaultValue="" className="select text-black" required>
-                                            <option value="" disabled>Your Role</option>
-                                            <option value="user">User</option>
-                                            <option value="delivery">Delivery Man</option>
-                                            <option value="admin" disabled>Admin</option>
-                                        </select>
-
-                                        <div className="mb-2"></div>
-
-                                        <label className="label text-emerald-700 font-semibold">Photo</label>
-                                        <input type="file" name="image" accept="image/" className="file-input file-input-success" required />
-
-                                        <div className="mb-1"></div>
-
-                                        <div>
-                                            <p className="text-black">Already have an account? <Link to={"/login"} className="link link-success link-hover">Login</Link></p>
+                                        {/* first name */}
+                                        <div className="mb-5">
+                                            <label className="mb-3 block text-emerald-800 font-medium ">
+                                                First Name
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="fname"
+                                                placeholder="First Name"
+                                                className="w-full rounded-md border border-emerald-800 bg-white py-3 px-6 text-base font-medium text-emerald-800 outline-none focus:border-emerald-800 focus:shadow-md" />
                                         </div>
+                                    </div>
+                                    <div className="w-full px-3 sm:w-1/2">
 
-                                        {
-                                            loading ? (
-                                                <>
-                                                    <button
-                                                        disabled={user}
-                                                        className={`btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${user ? "opacity-50 cursor-not-allowed" : ""}`}>
-                                                        <span className="loading loading-spinner loading-xl"></span>
-                                                    </button>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <button
-                                                        disabled={user}
-                                                        className={`btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${user ? "opacity-50 cursor-not-allowed" : ""}`}>
-                                                        Register
-                                                    </button>
-                                                </>
-                                            )
-                                        }
+                                        {/* last name */}
+                                        <div className="mb-5">
+                                            <label className="mb-3 block text-base font-medium text-emerald-800">
+                                                Last Name
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="lname"
+                                                placeholder="Last Name"
+                                                className="w-full rounded-md border border-emerald-800 bg-white py-3 px-6 text-base font-medium text-emerald-800 outline-none focus:border-emerald-800 focus:shadow-md" />
+                                        </div>
+                                    </div>
+                                </div>
 
-                                    </fieldset>
-                                </form>
-                            </div>
+                                {/* Email Address */}
+                                <div className="mb-5">
+                                    <label className="mb-3 block text-base font-medium text-emerald-800">
+                                        Email Address
+                                    </label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder="Enter your email"
+                                        className="w-full rounded-md border border-emerald-800 bg-white py-3 px-6 text-base font-medium text-emerald-800 outline-none focus:border-emerald-800 focus:shadow-md" />
+                                </div>
+
+                                {/* Password */}
+                                <div className="mb-5">
+                                    <label className="mb-3 block text-base font-medium text-emerald-800">
+                                        Passowrd
+                                    </label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        placeholder="Enter your email"
+                                        className="w-full rounded-md border border-emerald-800 bg-white py-3 px-6 text-base font-medium text-emerald-800 outline-none focus:border-emerald-800 focus:shadow-md" />
+                                </div>
+
+                                {/* Phone Number */}
+                                <div className="mb-5">
+                                    <label className="mb-3 block text-base font-medium text-emerald-800">
+                                        Phone Number
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="phone"
+                                        placeholder="Enter your phone number"
+                                        className="w-full rounded-md border border-emerald-800 bg-white py-3 px-6 text-base font-medium text-emerald-800 outline-none focus:border-emerald-800 focus:shadow-md" />
+                                </div>
+
+                                {/* Role Select */}
+                                <div className="mb-5">
+                                    <label className="mb-3 block text-base font-medium text-emerald-800">
+                                        User Role
+                                    </label>
+                                    <select name="role" defaultValue="" className="w-full rounded-md border border-emerald-800 bg-white py-3 px-5 text-base font-medium text-emerald-800 outline-none focus:border-[#6A64F1] focus:shadow-md" required>
+                                        <option value="" className="text-" disabled>Your Role</option>
+                                        <option value="user" className="text-emerald-700 font-semibold">User</option>
+                                        <option value="delivery" className="text-blue-600 font-semibold">Delivery Man</option>
+                                        <option value="admin" disabled>Admin</option>
+                                    </select>
+                                </div>
+
+                                {/* image input */}
+
+
+                                <div className="mb-5">
+                                    <label className="mb-3 block text-base font-medium text-emerald-800">
+                                        Upload
+                                    </label>
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        role="button"
+                                        placeholder="Uplaod Your Image"
+                                        className="w-full file-input rounded-md border border-emerald-800 bg-white text-emerald-800 font-medium outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                </div>
+
+                                <div>
+                                    <p className="text-black">Already have an account? <Link to={"/login"} className="link link-success link-hover">Login</Link></p>
+                                </div>
+
+                                {
+                                    loading ? (
+                                        <>
+                                            <button
+                                                disabled={user}
+                                                className={`btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${user ? "opacity-50 cursor-not-allowed" : ""}`}>
+                                                <span className="loading loading-spinner loading-xl"></span>
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button
+                                                disabled={user}
+                                                className={`btn py-6 bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${user ? "opacity-50 cursor-not-allowed" : ""}`}>
+                                                Register
+                                            </button>
+                                        </>
+                                    )
+                                }
+                            </form>
                         </div>
-                    </div>
+                    </div >
                 </div>
+
             </div>
+
+            <div>
+
+            </div >
         </>
 
     );

@@ -43,7 +43,8 @@ const Profile = () => {
 
                 <div className="flex flex-col gap-4">
                     <img className="w-24 h-24 rounded-full" src={userDB.photoURL} alt="" />
-                    <div className=" h-4 w-20">{userDB.name}</div>
+                    <div className=" h-4 w-20">{userDB.fname}</div>
+                    <div className=" h-4 w-20">{userDB.lname}</div>
                     <div className=" h-4 w-28">{userDB.email}</div>
                 </div>
             </div>
