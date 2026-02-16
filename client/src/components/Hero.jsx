@@ -1,6 +1,4 @@
-import { Link } from "react-router";
-
-const Hero = ({heroBgSize, image, title, details, buttonClass, buttonText, linkText, path1, path2}) => {
+const Hero = ({heroBgSize, image, title, details, buttonClass, buttonText }) => {
     return (
         <>
             <div

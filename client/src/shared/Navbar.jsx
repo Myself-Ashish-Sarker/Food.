@@ -365,11 +365,11 @@ const Navbar = () => {
                                         {
                                             userDB && (
                                                 userDB?.role === "admin" ? (
-                                                    <li><Link className="hover:bg-pink-700 hover:text-white p-2 text-[0.95rem] font-semibold">View  {userDB.name} Profile</Link></li>
+                                                    <li><Link onClick={closeDropdown} to={`/profile/${userDB._id}`} className="hover:bg-pink-700 hover:text-white p-2 text-[0.95rem] font-semibold">View  {userDB.name} Profile</Link></li>
                                                 ) : userDB?.role === "delivery man" ? (
-                                                    <li><Link className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">View {userDB.name} Profile</Link></li>
+                                                    <li><Link onClick={closeDropdown} to={`/profile/${userDB._id}`} className="hover:bg-blue-500 hover:text-white p-2 text-[0.95rem] font-semibold">View {userDB.name} Profile</Link></li>
                                                 ) : (
-                                                    <li><Link className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">View {userDB.name} Profile</Link></li>
+                                                    <li><Link onClick={closeDropdown} to={`/profile/${userDB._id}`} className="hover:bg-emerald-700 hover:text-white p-2 text-[0.95rem] font-semibold">View {userDB.name} Profile</Link></li>
                                                 )
                                             )
                                         }

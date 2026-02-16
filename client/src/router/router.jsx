@@ -5,6 +5,7 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Contact from "../pages/Contact";
 import AllUsers from "../pages/AllUsers";
+import Profile from "../pages/Profile";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "/all-users",
                 element: <AllUsers />
+            },
+            {
+                path: "/profile/:id",
+                element: <Profile />
             }
         ]
     },
