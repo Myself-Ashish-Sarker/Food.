@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@mongo-app.q62fegx.mongodb.net/?appName=mongo-app`;
 const port = process.env.PORT || 5000;
 
@@ -55,9 +55,17 @@ async function run() {
 
         // filter role based user api
         app.get("/users", async (req, res) => {
-            const role = rq.query.role;
+            const role = req.query.role;
             const query = role ? { role } : {};
             const result = await userCollection.find(query).toArray();
+            res.send(result);
+        })
+
+        // delete user api
+        app.delete("/users/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await userCollection.deleteOne(query);
             res.send(result);
         })
 
