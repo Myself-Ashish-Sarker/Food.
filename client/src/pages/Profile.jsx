@@ -4,14 +4,16 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 import { useNavigate } from "react-router";
 import { SiCanvas } from "react-icons/si";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import Swal from "sweetalert2";
 
 const Profile = () => {
 
-    const { user, loading } = useContext(AuthContext);
+    const { user, loading, deleteAccount } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
     const [userDB, setUserDB] = useState({});
+    const [password, setPassword] = useState("");
 
     useEffect(() => {
         if (!loading && !user) {
@@ -31,16 +33,52 @@ const Profile = () => {
             })
     }, []);
 
+
     // delete id
-    const handleAccDelete = () => {
-        useEffect(() => {
-            axiosPublic.delete(`/users/${user.email}`)
-                .then(res => {
-                    setUserDB(res.data);
-                }).catch(err => {
-                    console.error(err);
-                })
-        }, [])
+    const handleAccDelete = async () => {
+
+        // if password is not prvided but clicked the delete button, an error swal will fire
+        if (!password) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please provide your passowrd!",
+            });
+
+        return;
+        };
+
+        // if (!result.isConfirmed) return;
+
+        const result = await Swal.fire({
+            title: "Are you sure you want to delete this account?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        })
+
+        try {
+            const res = await axiosPublic.delete(`/users/${userDB._id}`);
+
+            if (res.data.deletedCount > 0) {
+                await deleteAccount(password);
+
+                await Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+
+                navigate("/");
+            }
+
+
+        } catch (error) {
+
+        }
     }
 
     // redable date
@@ -219,20 +257,18 @@ const Profile = () => {
                                 <span>Be Careful, This will delete you Account if you click delete button and confirm. Proceed Cautiously !!!</span>
                             </div>
 
-                            <div className="flex justify-center">
-                                <button className="mt-10 btn bg-red-500 text-white" onClick={() => document.getElementById('my_modal_3').showModal()}>Delete Account</button>
-                            </div>
-                            <dialog id="my_modal_3" className="modal">
-                                <div className="modal-box">
-                                    <form method="dialog">
-                                        {/* if there is a button in form, it will close the modal */}
-                                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                    </form>
-                                    <h3 className="font-bold text-lg">Delete Account</h3>
-                                    <p className="py-4">Are you sure you want to delete your account?!</p>
-                                    <button onClick={handleAccDelete} className="btn btn-error text-white">Delete</button>
-                                </div>
-                            </dialog>
+                            <div className="mt-10"></div>
+
+                            <input
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                type="password"
+                                placeholder="Provide Password"
+                                className="w-full lg:w-full rounded-md border bg-white py-3 px-6 text-base font-medium  outline-none  focus:shadow-md" />
+
+                            <div className="mt-10"></div>
+
+                            <button onClick={handleAccDelete} className="btn bg-red-700 text-white px-6 py-4">Delete Account!</button>
                         </div>
 
 
