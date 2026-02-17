@@ -4,6 +4,7 @@ import Footer from "../shared/Footer";
 import { ToastContainer } from "react-toastify";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { RotatingSquare } from "react-loader-spinner";
 
 const Root = () => {
 
@@ -12,7 +13,15 @@ const Root = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center h-screen">
-                <span className="loading loading-spinner font-light loading-5xl"></span>
+                <RotatingSquare
+                    visible={true}
+                    height="100"
+                    width="100"
+                    color="#4fa94d"
+                    ariaLabel="rotating-square-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                />
             </div>
         )
     }
