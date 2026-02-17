@@ -5,10 +5,11 @@ import { useNavigate } from "react-router";
 import { SiCanvas } from "react-icons/si";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
+import { Slide, toast } from "react-toastify";
 
 const Profile = () => {
 
-    const { user, loading, deleteAccount } = useContext(AuthContext);
+    const { user, loading, changePassword, deleteAccount } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
@@ -34,6 +35,45 @@ const Profile = () => {
     }, []);
 
 
+    // update users passowrd
+    const handleChangePassword = (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+
+        const previousPassword = form.previousPassword.value;
+        const newPassword = form.newPassword.value;
+
+        changePassword(previousPassword, newPassword)
+            .then(
+                toast.success('Password changed successfully!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Slide,
+                })
+            ).catch(err => {
+                toast.error('Passowrd changed unsuccessfull!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Slide,
+                });
+            })
+
+        console.log(previousPassword, newPassword);
+    }
+
     // delete id
     const handleAccDelete = async () => {
 
@@ -45,7 +85,7 @@ const Profile = () => {
                 text: "Please provide your passowrd!",
             });
 
-        return;
+            return;
         };
 
         // if (!result.isConfirmed) return;
@@ -224,29 +264,33 @@ const Profile = () => {
                         <div className="tab-content bg-base-100 border-base-300 p-6">
                             <h1 className="text-3xl pt-3 pb-7">Password Change</h1>
 
-                            <div className="mb-5">
-                                <label className="mb-3 block text-base font-medium text-black">
-                                    Previous Passowrd
-                                </label>
-                                <input
-                                    type="text"
-                                    placeholder="Previous Password"
-                                    className="w-full lg:w-full rounded-md border bg-white py-3 px-6 text-base font-medium  outline-none  focus:shadow-md" />
-                            </div>
+                            <form onSubmit={handleChangePassword}>
+                                <div className="mb-5">
+                                    <label className="mb-3 block text-base font-medium text-black">
+                                        Previous Passowrd
+                                    </label>
+                                    <input
+                                        type="password"
+                                        name="previousPassword"
+                                        placeholder="Previous Password"
+                                        className="w-full lg:w-full rounded-md border bg-white py-3 px-6 text-base font-medium  outline-none  focus:shadow-md" />
+                                </div>
 
-                            <div className="mt-10"></div>
+                                <div className="mt-10"></div>
 
-                            <div className="mb-5">
-                                <label className="mb-3 block text-base font-medium text-black">
-                                    New Passowrd
-                                </label>
-                                <input
-                                    type="text"
-                                    placeholder="Previous Password"
-                                    className="w-full lg:w-full rounded-md border bg-white py-3 px-6 text-base font-medium  outline-none  focus:shadow-md" />
-                            </div>
+                                <div className="mb-5">
+                                    <label className="mb-3 block text-base font-medium text-black">
+                                        New Passowrd
+                                    </label>
+                                    <input
+                                        type="password"
+                                        name="newPassword"
+                                        placeholder="Previous Password"
+                                        className="w-full lg:w-full rounded-md border bg-white py-3 px-6 text-base font-medium  outline-none  focus:shadow-md" />
+                                </div>
 
-                            <button className="mt-5 btn btn-success text-white">Change Password</button>
+                                <button className="mt-5 btn btn-success text-white">Change Password</button>
+                            </form>
 
                             <div className="mt-15"></div>
 
