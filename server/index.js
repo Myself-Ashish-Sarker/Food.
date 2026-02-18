@@ -30,7 +30,7 @@ async function run() {
 
         // collection database
         const userCollection = client.db("foodDB").collection("users");
-
+        await userCollection.createIndex({ email: 1 }, { unique: true });
 
         // post user api
         app.post("/users", async (req, res) => {
@@ -39,11 +39,12 @@ async function run() {
             res.send(result);
         });
 
-        // get user api
+        // get user api & filter role based user api
         app.get("/users", async (req, res) => {
-            const cursor = userCollection.find();
-            const result = await cursor.toArray();
-            res.send(result)
+            const role = req.query.role;
+            const query = role ? { role } : {};
+            const result = await userCollection.find(query).toArray();
+            res.send(result);
         });
 
         // get user specific api
@@ -53,21 +54,13 @@ async function run() {
             res.send(user);
         });
 
-        // filter role based user api
-        app.get("/users", async (req, res) => {
-            const role = req.query.role;
-            const query = role ? { role } : {};
-            const result = await userCollection.find(query).toArray();
-            res.send(result);
-        })
-
         // delete user api
         app.delete("/users/:id", async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
             const result = await userCollection.deleteOne(query);
             res.send(result);
-        })
+        });
 
 
 

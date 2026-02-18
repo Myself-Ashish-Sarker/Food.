@@ -1,4 +1,4 @@
-const Hero = ({heroBgSize, image, title, details, buttonClass, buttonText }) => {
+const Hero = ({ heroBgSize, image, title, details, buttonClass, buttonText }) => {
     return (
         <>
             <div

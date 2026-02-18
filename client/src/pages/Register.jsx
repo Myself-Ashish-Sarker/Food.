@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import registerImg from "../assets/register.jpg";
 import { TiArrowBack } from "react-icons/ti";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { Slide, toast } from "react-toastify";
@@ -15,11 +15,17 @@ const Register = () => {
 
     const axiosPublic = useAxiosPublic();
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const image_hosting_key = import.meta.env.VITE_IMGBB_API_KEY;
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
     const handleregister = async (e) => {
         e.preventDefault();
+
+        if (isSubmitting) return;
+
+        setIsSubmitting(true);
 
         const form = e.target;
 
@@ -85,6 +91,8 @@ const Register = () => {
                 });
             }
 
+        } finally {
+            setIsSubmitting(false);
         }
     }
 
@@ -219,25 +227,13 @@ const Register = () => {
                                     <p className="text-black">Already have an account? <Link to={"/login"} className="link link-success link-hover">Login</Link></p>
                                 </div>
 
-                                {
-                                    loading ? (
-                                        <>
-                                            <button
-                                                disabled={user}
-                                                className={`btn bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${user ? "opacity-50 cursor-not-allowed" : ""}`}>
-                                                <span className="loading loading-spinner loading-xl"></span>
-                                            </button>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <button
-                                                disabled={user}
-                                                className={`btn py-6 bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${user ? "opacity-50 cursor-not-allowed" : ""}`}>
-                                                Register
-                                            </button>
-                                        </>
-                                    )
-                                }
+                                <button
+                                    disabled={isSubmitting}
+                                    className={`btn py-6 bg-emerald-800 hover:bg-emerald-600 text-white mt-7 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+                                >
+                                    {isSubmitting ? "Registering..." : "Register"}
+                                </button>
+
                             </form>
                         </div>
                     </div >
